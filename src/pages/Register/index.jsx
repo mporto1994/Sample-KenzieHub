@@ -42,7 +42,7 @@ const Register = ({auth}) => {
         <Container>
                 <div className="title">
                     <h1>Kenzie Hub</h1>
-                    <button id="Voltar" onClick={()=>history.push("./")}>Voltar</button> 
+                    <button id="Voltar" onClick={()=>history.push("./")}>Login</button> 
                 </div>
             <RegisterDivS>
                 

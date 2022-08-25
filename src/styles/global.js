@@ -15,7 +15,10 @@ const GlobalStyle = createGlobalStyle`
     --Sucess:#3Fe864;
     --Negative:#e83f5b;
     }
-
+    body{
+        height:100%;
+        background-color:var(--Grey-4);
+    }
     * {
         margin: 0;
         padding: 0;

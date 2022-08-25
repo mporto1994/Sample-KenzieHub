@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const RegisterDivS = styled.div`
     padding:30px 0;
+    
     input,select{
         border:none;
     }

@@ -4,9 +4,10 @@ import styled from "styled-components"
 
 export const ContainerS = styled.div`
     width:100vw;
-    height:100vh;
+    height:100%;
     background-color:var(--Grey-4);
     display:flex;
+    padding:30px 0;
     
     align-items:center;
     justify-content:center;
@@ -17,6 +18,7 @@ export const ContainerS = styled.div`
     }
     
     .title {
+        padding:0;
         display:flex;
         flex-direction: row;
         align-items:center;
@@ -25,6 +27,7 @@ export const ContainerS = styled.div`
         #Voltar{
         width:80px;
         height:25px;
+        font-weight:700;
         background-color:var(--Grey-3);
         }
     }
