@@ -6,14 +6,19 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from "react-router-dom";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Register = ({auth}) => {
     const history = useHistory()
+    const notify = (message) => toast(message);
 
     const schema = yup.object().shape({
         name: yup.string().required("Nome obrigatório"),
         email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
         password: yup.string().required("E-mail obrigatório"),
-        passwordConfirm: yup.string().required("E-mail obrigatório"),
+        passwordConfirmation: yup.string().required(" obrigatório")
+            .oneOf([yup.ref('password'), null], notify('Passwords must match')),
         course_module: yup.string().required("E-mail obrigatório")
     })
     const {register,handleSubmit, formState:{errors}}=useForm({
@@ -26,11 +31,13 @@ const Register = ({auth}) => {
         axios.post('https://kenziehub.herokuapp.com/users',{name,password,email,course_module,bio:"MyBio",contact:"/@MyContact"})
             .then((response)=>{
                 console.log(response)
+                history.push("/")
             })
             .catch((err)=>{
-                console.log(err)
+                notify(err.message)   
+                console.log(err.message)
             })
-        history.push("/")
+        // history.push("/")
     }
 
 
@@ -47,6 +54,7 @@ const Register = ({auth}) => {
             <RegisterDivS>
                 
                 <h2>Crie sua Conta</h2>
+                <ToastContainer />
                 <span>Rápido e grátis, vamos nessa</span>
                 <form onSubmit={handleSubmit(applyRegister)}>
                     <label>Nome
@@ -56,10 +64,10 @@ const Register = ({auth}) => {
                         <input type="text" placeholder="Digite o Email"   {...register("email")}/>
                     </label>
                     <label>Senha
-                        <input type="text" placeholder="Digite a senha"   {...register("password")}/>
+                        <input  type="password" placeholder="Digite a senha"   {...register("password")}/>
                     </label>
                     <label>Confirmação de Senha
-                        <input type="text" placeholder="Confirme a senha" {...register("passwordConfirm")}/>
+                        <input  type="password" placeholder="Confirme a senha" {...register("passwordConfirm")}/>
                     </label>
                     <label >Selecione o Módulo
                         <select  >
