@@ -11,37 +11,51 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Register = ({auth}) => {
     const history = useHistory()
-    const notify = (message) => toast(message);
+    const notify = (message) => toast.error(message);
 
     const schema = yup.object().shape({
-        name: yup.string().required("Nome obrigatório"),
+        name: yup.string().required('The name is mandatory'),
         email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
         password: yup.string().required("E-mail obrigatório"),
         passwordConfirmation: yup.string().required(" obrigatório")
-            .oneOf([yup.ref('password'), null], notify('Passwords must match')),
+            .oneOf([yup.ref('password'), null], 'Passwords must match'),
         course_module: yup.string().required("E-mail obrigatório")
     })
+    
     const {register,handleSubmit, formState:{errors}}=useForm({
         resolver:yupResolver(schema)
     })
+   
+
+    const showErrors = () => {
+        console.log(errors)
+        const thereIsErrors = Object.keys(errors).length!==0;
+        if(thereIsErrors){
+            for (let error in errors){
+                notify(error.name.message)
+            }
+        }
+    }
 
     const applyRegister = (data) =>{
-        console.log(data)
+        showErrors()
+        console.log("errors")
         const {name,password,email,course_module} = data
         axios.post('https://kenziehub.herokuapp.com/users',{name,password,email,course_module,bio:"MyBio",contact:"/@MyContact"})
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 history.push("/")
             })
             .catch((err)=>{
-                notify(err.message)   
-                console.log(err.message)
+                // console.log(err.message)
+                // notify(errors.name.message)
             })
-        // history.push("/")
+            
     }
 
+ // notify(errors.name.message)
 
-    
+    // console.log(errors)
 
 
 
@@ -49,12 +63,14 @@ const Register = ({auth}) => {
         <Container>
                 <div className="title">
                     <h1>Kenzie Hub</h1>
+                    {console.log(errors.name)}
                     <button id="Voltar" onClick={()=>history.push("./")}>Login</button> 
                 </div>
             <RegisterDivS>
                 
                 <h2>Crie sua Conta</h2>
                 <ToastContainer />
+                
                 <span>Rápido e grátis, vamos nessa</span>
                 <form onSubmit={handleSubmit(applyRegister)}>
                     <label>Nome
@@ -79,7 +95,7 @@ const Register = ({auth}) => {
                             {/* <option value="">Sexto Módulo</option> */}
                         </select>
                     </label>
-                    <button type="submit">Cadastrar</button>
+                    <button type="submit" onClick={()=>showErrors}>Cadastrar</button>
                 </form>
                 
             </RegisterDivS>
