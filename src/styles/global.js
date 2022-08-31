@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     }
     * {
         margin: 0;
-        padding: 0;
+        /* padding: 0; */
         box-sizing:border-box;
         outline:0;
         font-family:Inter;
@@ -31,6 +31,12 @@ const GlobalStyle = createGlobalStyle`
         cursor:pointer;
         border-radius:4px;
         border:none;
+        :hover{
+            font-weight:600;
+            font-size-adjust:1.1;
+            background-color:-50%;
+            border:1px solid var(--Grey-0);
+        }
 
     }
 
@@ -46,7 +52,10 @@ const GlobalStyle = createGlobalStyle`
     input,select{
         background-color:var(--Grey-2);
         border-radius:3.2px;
-        border:1px solid var(--Grey-0)
+        border:1px solid var(--Grey-0);
+        :hover{
+            border:2px solid var(--Grey-0);
+        }
     }
     button,input,select{
         height:38.5px;

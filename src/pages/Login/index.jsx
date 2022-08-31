@@ -8,12 +8,18 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Redirect } from "react-router-dom"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const Login = ({auth, setAuth}) => {
     const history = useHistory()
+    const notify = (message) => toast.error(message);
+
 
     const schema = yup.object().shape({
         email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
-        password: yup.string().required("E-mail obrigatório"),
+        password: yup.string().required("Senha obrigatória"),
     })
 
     const {register,handleSubmit, formState:{errors}}=useForm({
@@ -21,11 +27,11 @@ const Login = ({auth, setAuth}) => {
     })
 
     const makeLogin = (data) =>{
-        console.log(data)
+        // console.log(data)
         axios.post('https://kenziehub.herokuapp.com/sessions',data)
             .then((response)=>{
                 const {token} = response.data;
-                console.log(response);
+                // console.log(response);
 
                 localStorage.setItem("@Kenziehub:token", JSON.stringify(token));
                 localStorage.setItem("@Kenziehub:user", JSON.stringify(response.data.user));
@@ -34,7 +40,8 @@ const Login = ({auth, setAuth}) => {
                 history.push("/home");
             })
             .catch((err)=>{
-                console.log(err)
+                // console.log(err.message)
+                notify(err.message)
             })
         // history.push("/")
     }

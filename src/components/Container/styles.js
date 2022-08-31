@@ -25,11 +25,14 @@ export const ContainerS = styled.div`
         justify-content:space-between;
         
         #Voltar{
-        width:80px;
-        height:25px;
-        font-weight:700;
-        background-color:var(--Grey-3);
-        }
+            width:80px;
+            height:25px;
+            font-weight:700;
+            background-color:var(--Grey-3);
+            :hover{
+                    background-color:var(--Grey-2);
+                }
+            }
     }
 
     >*{
@@ -60,6 +63,9 @@ export const ContainerS = styled.div`
         button{
             color:#FFF;
             background-color:var(--Color-primary);
+            :hover{
+                background-color:var(--Color-primary-Focus);
+            }
         }
         input,select,option{
             margin:18px 0px;
@@ -80,6 +86,9 @@ export const ContainerS = styled.div`
     button{
         color:var(--Grey-0);
         background-color:var(--Grey-1);
+        :hover{
+                background-color:var(--Grey-2);
+            }
     }
     div{
 
@@ -94,6 +103,9 @@ export const ContainerS = styled.div`
     nav button{
         width:55.5px;
         height:32px;
+        :hover{
+                background-color:var(--Grey-1);
+            }
         
     }
 `
